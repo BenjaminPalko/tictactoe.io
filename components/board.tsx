@@ -1,5 +1,6 @@
 import React from "react";
 import Square from "./square";
+import {Box, Grid} from "@mui/material";
 
 interface BoardProps {
 
@@ -32,9 +33,9 @@ export default class Board extends React.Component<BoardProps, BoardState> {
         });
     }
 
-    renderSquare(i: number) {
+    renderSquare(i: number, value: string) {
         return (
-            <Square onClick={() => this.handleClick(i)} value={this.state.squares[i]} />
+            <Square onClick={() => this.handleClick(i)} value={value} />
         );
     }
 
@@ -48,24 +49,18 @@ export default class Board extends React.Component<BoardProps, BoardState> {
         }
 
         return (
-            <div>
-                <div className={"status"}>{status}</div>
-                <div className={"board-row"}>
-                    {this.renderSquare(0)}
-                    {this.renderSquare(1)}
-                    {this.renderSquare(2)}
-                </div>
-                <div className={"board-row"}>
-                    {this.renderSquare(3)}
-                    {this.renderSquare(4)}
-                    {this.renderSquare(5)}
-                </div>
-                <div className={"board-row"}>
-                    {this.renderSquare(6)}
-                    {this.renderSquare(7)}
-                    {this.renderSquare(8)}
-                </div>
-            </div>
+            <Box>
+                <div>{status}</div>
+                <Grid container spacing={1}>
+                    {
+                        this.state.squares.map((value, index) => {
+                            return (<Grid item key={index} xs={4}>
+                                {this.renderSquare(index, value)}
+                            </Grid>)
+                        })
+                    }
+                </Grid>
+            </Box>
         )
     }
 }
