@@ -12,9 +12,7 @@ export default function Square(props: SquareProps) {
         if (!props.value) {
             return <Skeleton variant={"text"} width={16} animation={false} />;
         }
-        return props.value === 'X' ?
-            <Close />
-            : <RadioButtonUnchecked />
+        return props.value === 'X' ? <Close /> : <RadioButtonUnchecked />
     }
 
 
