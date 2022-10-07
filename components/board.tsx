@@ -11,58 +11,53 @@ interface BoardState {
     xIsNext: boolean;
 }
 
-export default class Board extends React.Component<BoardProps, BoardState> {
+export default function Board(props: BoardProps) {
 
-    constructor(props: BoardProps) {
-        super(props);
-        this.state = {
-            squares: Array(9).fill(null),
-            xIsNext: true,
-        };
-    }
+    const [state, setState] = React.useState<BoardState>({
+        squares: Array(9).fill(null),
+        xIsNext: true,
+    });
 
-    handleClick(i: number) {
-        const squares = this.state.squares.slice();
+    function handleClick(i: number) {
+        const squares = state.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
-        squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState({
+        squares[i] = state.xIsNext ? 'X' : 'O';
+        setState({
             squares: squares,
-            xIsNext: !this.state.xIsNext
+            xIsNext: !state.xIsNext
         });
     }
 
-    renderSquare(i: number, value: string) {
+    function renderSquare(i: number, value: string) {
         return (
-            <Square onClick={() => this.handleClick(i)} value={value} />
+            <Square onClick={() => handleClick(i)} value={value} />
         );
     }
 
-    render() {
-        const winner = calculateWinner(this.state.squares);
-        let status;
-        if (winner) {
-            status = `Winner: ${winner}`;
-        } else {
-            status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`
-        }
-
-        return (
-            <Box>
-                <div>{status}</div>
-                <Grid container spacing={1}>
-                    {
-                        this.state.squares.map((value, index) => {
-                            return (<Grid item key={index} xs={4}>
-                                {this.renderSquare(index, value)}
-                            </Grid>)
-                        })
-                    }
-                </Grid>
-            </Box>
-        )
+    const winner = calculateWinner(state.squares);
+    let status;
+    if (winner) {
+        status = `Winner: ${winner}`;
+    } else {
+        status = `Next player: ${state.xIsNext ? 'X' : 'O'}`
     }
+
+    return (
+        <Box>
+            <div>{status}</div>
+            <Grid container spacing={1}>
+                {
+                    state.squares.map((value, index) => {
+                        return (<Grid item key={index} xs={4}>
+                            {renderSquare(index, value)}
+                        </Grid>)
+                    })
+                }
+            </Grid>
+        </Box>
+    )
 }
 
 function calculateWinner(squares: Array<string>) {
