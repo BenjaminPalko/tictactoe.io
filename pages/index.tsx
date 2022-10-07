@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import Game from "../components/game";
-import {Container, CssBaseline, Paper, ThemeProvider, Typography} from "@mui/material";
+import {Box, Container, CssBaseline, Paper, ThemeProvider, Typography} from "@mui/material";
 import {lightTheme} from "../constants/themes";
 
 const Home: NextPage = () => {
@@ -9,7 +9,7 @@ const Home: NextPage = () => {
         <ThemeProvider theme={lightTheme}>
             <CssBaseline />
             <Container maxWidth={"md"} sx={{mt: {xs: "auto", md: 4}}}>
-                <Paper sx={{p: 16}}>
+                <Box component={Paper} sx={{p: 16}}>
                     <Typography
                         variant={"h2"}
                         sx={{textAlign: "center"}}
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
                         Tic-Tac-Toe
                     </Typography>
                     <Game/>
-                </Paper>
+                </Box>
             </Container>
         </ThemeProvider>
     )
