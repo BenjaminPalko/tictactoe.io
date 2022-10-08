@@ -1,4 +1,4 @@
-import type {NextPage} from 'next'
+import type {NextPage} from 'next';
 import Game from "../components/game";
 import {Box, Container, CssBaseline, Paper, ThemeProvider, Typography} from "@mui/material";
 import {lightTheme} from "../constants/themes";

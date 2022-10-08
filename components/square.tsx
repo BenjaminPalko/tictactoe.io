@@ -18,7 +18,7 @@ export default function Square(props: SquareProps) {
 
     return (
         <Button
-            disabled={props.value}
+            disabled={!!props.value}
             variant={"outlined"}
             onClick={() => props.onClick()}
         fullWidth={true}>
