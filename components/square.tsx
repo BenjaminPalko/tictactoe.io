@@ -1,4 +1,4 @@
-import {Button, Skeleton} from "@mui/material";
+import {Button} from "@mui/material";
 import {Close, RadioButtonUnchecked} from "@mui/icons-material";
 
 interface SquareProps {
@@ -12,7 +12,7 @@ export default function Square(props: SquareProps) {
 
     function getIcon() {
         if (!props.value) {
-            return <Skeleton variant={"text"} width={"100%"} height={"100%"} animation={false} />;
+            return;
         }
         return props.value === 'X' ? <Close sx={{width: "100%", height: "100%"}} /> : <RadioButtonUnchecked sx={{width: "100%", height: "100%"}} />
     }
