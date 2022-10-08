@@ -9,7 +9,7 @@ const Home: NextPage = () => {
         <ThemeProvider theme={lightTheme}>
             <CssBaseline />
             <Container maxWidth={"md"} sx={{mt: {xs: "auto", md: 4}}}>
-                <Box component={Paper} sx={{p: 16}}>
+                <Box component={Paper} sx={{px: 16, pb: 16, pt: 4}}>
                     <Typography
                         variant={"h2"}
                         sx={{textAlign: "center"}}
@@ -17,7 +17,9 @@ const Home: NextPage = () => {
                     >
                         Tic-Tac-Toe
                     </Typography>
-                    <Game/>
+                    <Box alignContent={"center"}>
+                        <Game />
+                    </Box>
                 </Box>
             </Container>
         </ThemeProvider>
