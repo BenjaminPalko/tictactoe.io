@@ -39,7 +39,7 @@ export default class Board extends React.Component<BoardProps, BoardState> {
             squares: squares,
             xIsNext: !this.state.xIsNext
         });
-            io.emit("play", this.state)
+        io.emit("play", this.state)
 
 
     }

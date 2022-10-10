@@ -7,9 +7,9 @@ const io = require('socket.io')(server, {
 });
 io.on('connection', (socket)=> {
   // receive the event and broadcast to other clients
-  socket.on("play", index => {
-    console.log("server received", index)
-    socket.broadcast.emit("play", index)
+  socket.on("play", state => {
+    console.log("server received", state)
+    socket.broadcast.emit("play", state)
   })
 })
 
