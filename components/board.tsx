@@ -1,13 +1,14 @@
+import type { SquareValue } from "./square";
 import React from "react";
-import Square from "./square";
-import {Box, Grid} from "@mui/material";
+import Square  from "./square";
+import { Box, Button, Chip, Grid, Stack } from "@mui/material";
 
 interface BoardProps {
 
 }
 
 interface BoardState {
-    squares: Array<string>;
+    squares: Array<SquareValue>;
     xIsNext: boolean;
 }
 
@@ -18,7 +19,7 @@ export default function Board(props: BoardProps) {
         xIsNext: true,
     });
 
-    function handleClick(i: number) {
+    function handleSquareClick(i: number) {
         const squares = state.squares.slice();
         if (calculateWinner(squares) || squares[i]) {
             return;
@@ -30,9 +31,16 @@ export default function Board(props: BoardProps) {
         });
     }
 
-    function renderSquare(i: number, value: string) {
+    function handleResetClick() {
+        setState({
+            squares: Array(9).fill(null),
+            xIsNext: true,
+        });
+    }
+
+    function renderSquare(i: number, value: SquareValue) {
         return (
-            <Square onClick={() => handleClick(i)} value={value} />
+            <Square onClick={() => handleSquareClick(i)} value={value} />
         );
     }
 
@@ -46,7 +54,14 @@ export default function Board(props: BoardProps) {
 
     return (
         <Box>
-            <div>{status}</div>
+            <Stack direction={"row"} justifyContent={"space-between"} sx={{mx: 1, mb: 1}}>
+                <Box>
+                    <Chip label={status} variant={"filled"} color={state.xIsNext ? "info" : status.includes('Winner') ? "success" : "warning"} />
+                </Box>
+                <Box>
+                    <Button variant={"contained"} onClick={() => handleResetClick()}>New Game</Button>
+                </Box>
+            </Stack>
             <Grid container spacing={1}>
                 {
                     state.squares.map((value, index) => {
@@ -60,7 +75,7 @@ export default function Board(props: BoardProps) {
     )
 }
 
-function calculateWinner(squares: Array<string>) {
+function calculateWinner(squares: Array<SquareValue>) {
     const lines = [
         [0, 1, 2],
         [3, 4, 5],
