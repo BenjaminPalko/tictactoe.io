@@ -1,5 +1,13 @@
 import React from "react";
 import Square from "./square";
+const server = require('http').createServer()
+
+const io = require('socket.io')(server, {
+    cors: {
+        origin: "http://localhost:8080",
+        methods: ["GET", "POST"]
+    }
+});
 
 interface BoardProps {
 
@@ -8,6 +16,7 @@ interface BoardProps {
 interface BoardState {
     squares: Array<string>;
     xIsNext: boolean;
+
 }
 
 export default class Board extends React.Component<BoardProps, BoardState> {
@@ -30,6 +39,9 @@ export default class Board extends React.Component<BoardProps, BoardState> {
             squares: squares,
             xIsNext: !this.state.xIsNext
         });
+            io.emit("play", this.state)
+
+
     }
 
     renderSquare(i: number) {
