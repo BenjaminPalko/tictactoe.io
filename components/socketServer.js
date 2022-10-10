@@ -6,7 +6,6 @@ const io = require('socket.io')(server, {
   }
 });
 io.on('connection', (socket)=> {
-  socket.emit("hello", "youtube tutorial");
   // receive the event and broadcast to other clients
   socket.on("play", index => {
     console.log("server received", index)
